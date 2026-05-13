@@ -1,0 +1,74 @@
+---
+const links = [
+  { label: 'Inicio', href: '#hero' },
+  { label: 'Proyectos', href: '#proyectos' },
+  { label: 'Experiencia', href: '#experiencia' },
+  { label: 'Contacto', href: '#contacto' },
+];
+---
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#hero" class="nav-logo">fb<span>.</span></a>
+    <ul class="nav-links">
+      {links.map((l) => (
+        <li><a href={l.href}>{l.label}</a></li>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.25rem var(--space-md);
+    background: rgba(8, 8, 8, 0.8);
+    backdrop-filter: blur(16px) saturate(180%);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .nav-logo span {
+    color: var(--color-accent);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: var(--space-md);
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    letter-spacing: 0.05em;
+    color: var(--color-muted-2);
+    transition: color var(--transition);
+  }
+
+  .nav-links a:hover {
+    color: var(--color-text);
+  }
+
+  @media (max-width: 600px) {
+    .nav-links {
+      gap: var(--space-sm);
+    }
+  }
+</style>

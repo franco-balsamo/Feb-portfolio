@@ -1,0 +1,120 @@
+---
+import type { experience as ExperienceType } from '../data/portfolio';
+
+interface Props {
+  experience: typeof ExperienceType;
+}
+
+const { experience } = Astro.props;
+---
+
+<section id="experiencia">
+  <div class="container">
+    <p class="section-label">03 / Trayectoria</p>
+    <h2 class="section-title section-heading">Experiencia</h2>
+    <div class="timeline">
+      {experience.map((item, i) => (
+        <div class="item">
+          <div class="item-meta">
+            <span class="period">{item.period}</span>
+          </div>
+          <div class="item-content">
+            <h3>{item.role}</h3>
+            <p class="company">{item.company}</p>
+            <p class="desc">{item.description}</p>
+            <ul class="tags">
+              {item.tech.map((t) => <li>{t}</li>)}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-lg);
+  }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    border-left: 1px solid var(--color-border);
+    padding-left: 2rem;
+    margin-left: 1rem;
+  }
+
+  .item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 2rem;
+  }
+
+  .item::before {
+    content: '';
+    position: absolute;
+    left: -2.5rem;
+    top: 0.4rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    border: 2px solid var(--color-bg);
+    outline: 1px solid var(--color-accent);
+  }
+
+  .period {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    padding-top: 0.3rem;
+  }
+
+  .item-content h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .company {
+    font-size: 0.875rem;
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .desc {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+  }
+
+  .tags li {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-muted);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 600px) {
+    .item {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+  }
+</style>

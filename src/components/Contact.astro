@@ -1,0 +1,103 @@
+---
+interface Props {
+  email: string;
+  github: string;
+  linkedin: string;
+}
+
+const { email, github, linkedin } = Astro.props;
+
+const links = [
+  { label: 'Email', href: `mailto:${email}`, display: email },
+  ...(github ? [{ label: 'GitHub', href: github, display: 'github.com/franco-balsamo' }] : []),
+  ...(linkedin ? [{ label: 'LinkedIn', href: linkedin, display: 'linkedin.com/in/...' }] : []),
+];
+---
+
+<section id="contacto">
+  <div class="container">
+    <p class="section-label">04 / ¿Hablamos?</p>
+    <h2 class="section-title section-heading">Contacto</h2>
+    <p class="intro">
+      Abierto a oportunidades laborales, freelance o simplemente charlar sobre proyectos.
+    </p>
+    <ul class="contact-links">
+      {links.map((l) => (
+        <li>
+          <span class="link-label">{l.label}</span>
+          <a href={l.href} target={l.href.startsWith('mailto') ? undefined : '_blank'} rel="noopener noreferrer">
+            {l.display} ↗
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>Diseñado y construido por <strong>Franco Balsamo</strong> · {new Date().getFullYear()}</p>
+  </div>
+</footer>
+
+<style>
+  section {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-md);
+  }
+
+  .intro {
+    max-width: 480px;
+    color: var(--color-muted);
+    margin-bottom: var(--space-md);
+    line-height: 1.7;
+  }
+
+  .contact-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .contact-links li {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .link-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-accent);
+    min-width: 80px;
+    letter-spacing: 0.08em;
+  }
+
+  .contact-links a {
+    font-size: 0.95rem;
+    color: var(--color-muted);
+    transition: color var(--transition);
+  }
+
+  .contact-links a:hover {
+    color: var(--color-text);
+  }
+
+  .footer {
+    padding: var(--space-md);
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--color-muted);
+  }
+</style>
